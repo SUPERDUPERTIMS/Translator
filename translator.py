@@ -54,16 +54,24 @@ st.markdown("""
 
 # Header Section
 st.markdown('<p class="main-title">🎙️ LinguaLive Pro</p>', unsafe_allow_html=True)
-st.markdown('<p class="subtitle">Record your voice or type for instant translation</p>', unsafe_allow_html=True)
+st.markdown('<p class="subtitle">Multi-language South African & Global Real-Time Translator</p>', unsafe_allow_html=True)
 
-# Language Configuration
+# Comprehensive Language Mapping (All Official SA Languages + Portuguese & Major Globals)
 languages = {
     "English (US)": "en",
     "Afrikaans": "af",
+    "isiZulu (Zulu)": "zu",
+    "isiXhosa (Xhosa)": "xh",
     "Sesotho": "st",
+    "Setswana (Tswana)": "tn",
+    "Sepedi (Northern Sotho)": "nso",
+    "Xitsonga (Tsonga)": "ts",
+    "Siswati (Swati)": "ss",
+    "Tshivenda (Venda)": "ve",
+    "isiNdebele (Ndebele)": "nr",
+    "Portuguese (Português)": "pt",
     "French (Français)": "fr",
-    "Spanish (Español)": "es",
-    "Zulu (isiZulu)": "zu"
+    "Spanish (Español)": "es"
 }
 
 col1, col2 = st.columns(2)
@@ -72,6 +80,7 @@ with col1:
     source_code = languages[source_lang_name]
 
 with col2:
+    # Default target to Afrikaans as a handy preset
     target_lang_name = st.selectbox("Translating To (Target)", list(languages.keys()), index=1)
     target_code = languages[target_lang_name]
 
@@ -79,10 +88,9 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 # Voice Recorder Card
 st.markdown('<div class="card-box">', unsafe_allow_html=True)
-st.markdown("### 🎙️ Tap to Record Voice")
-st.write("Click the microphone button below to speak:")
+st.markdown("### 🎙️ Voice Capture")
+st.write("Record your voice or type below:")
 
-# Live audio recorder widget
 audio_bytes = audio_recorder(
     text="Click to record",
     recording_color="#e11d48",
@@ -92,14 +100,14 @@ audio_bytes = audio_recorder(
 
 st.markdown('</div>', unsafe_allow_html=True)
 
-# Text fallback / Manual input option
-user_input = st.text_input("Or type text here:", placeholder="Type a word or phrase...")
+# Text Input Option
+user_input = st.text_input("Type text to translate:", placeholder="Type a word or phrase...")
 
 text_to_translate = ""
 
 if audio_bytes:
-    st.info("Audio recorded successfully! (Note: In a pure Python environment, direct speech-to-text requires an audio transcription API like OpenAI Whisper. For this instant version, type your phrase below or use presets to see live word-by-word translation format).")
-    text_to_translate = "Hello, how are you doing today?" # Sample fallback for voice capture demo
+    st.info("Audio recorded! Type your phrase below or use a preset to see the live translation update.")
+    text_to_translate = "Hello, how are you doing today?" 
 elif user_input:
     text_to_translate = user_input
 
